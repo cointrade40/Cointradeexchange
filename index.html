@@ -299,3 +299,21 @@ document.getElementById('withdraw-form').addEventListener('submit', function(e) 
   });
 });
       </script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init('rkNXFBNaIPASucJQr');
+
+  document.getElementById('signup-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    emailjs.send('service_default', 'template_uuoq5kf6', {
+      to_email: 'cointradeexchange314@gmail.com',
+      action: 'New Signup',
+      user_email: this.email.value,
+      details: 'Name: ' + this.name.value,
+      time: new Date().toLocaleString()
+    })
+    .then(() => alert('Sign up successful! Check your email.'))
+    .catch(err => alert('Error: ' + err.text));
+  });
+</script>
