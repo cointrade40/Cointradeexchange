@@ -3,51 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cointrade Exchange - Dashboard</title>
+  <title>Cointrade Exchange - UK Bitcoin Mining</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Arial,sans-serif}
     body{
-      background:#020617;
-      color:#e6e6e6;line-height:1.6;overflow-x:hidden;
-      position:relative;
+      background:#020617;color:#e6e6e6;line-height:1.6;overflow-x:hidden;position:relative;
     }
     
     /* ANIMATED BACKGROUND */
-    .bg-animation{
-      position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;
-      background:radial-gradient(ellipse at 50% 50%, #0f172a 0%, #020617 100%);
-    }
-    .grid-overlay{
-      position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;
-      background-image:linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px);
-      background-size:50px 50px;animation:gridMove 20s linear infinite;
-    }
+    .bg-animation{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:radial-gradient(ellipse at 50% 50%, #0f172a 0%, #020617 100%)}
+    .grid-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background-image:linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px);background-size:50px 50px;animation:gridMove 20s linear infinite}
     @keyframes gridMove{0%{transform:translate(0,0)}100%{transform:translate(50px,50px)}}
 
     /* FLOATING CRYPTO COINS */
     .floating-coins{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
-    .coin{
-      position:absolute;width:60px;height:60px;opacity:0.1;
-      animation:float 15s infinite ease-in-out;
-    }
-    .coin:nth-child(1){top:10%;left:10%;animation-delay:0s}
-    .coin:nth-child(2){top:20%;right:15%;animation-delay:2s}
-    .coin:nth-child(3){bottom:30%;left:20%;animation-delay:4s}
-    .coin:nth-child(4){bottom:10%;right:10%;animation-delay:6s}
-    .coin:nth-child(5){top:50%;left:50%;animation-delay:8s}
-    @keyframes float{
-      0%,100%{transform:translateY(0px) rotate(0deg)}
-      50%{transform:translateY(-40px) rotate(180deg)}
-    }
+    .coin{position:absolute;width:70px;height:70px;opacity:0.08;animation:float 18s infinite ease-in-out}
+    .coin:nth-child(1){top:10%;left:8%;animation-delay:0s}
+    .coin:nth-child(2){top:25%;right:12%;animation-delay:3s}
+    .coin:nth-child(3){bottom:25%;left:15%;animation-delay:6s}
+    .coin:nth-child(4){bottom:15%;right:8%;animation-delay:9s}
+    .coin:nth-child(5){top:50%;left:45%;animation-delay:12s}
+    @keyframes float{0%,100%{transform:translateY(0px) rotate(0deg)}50%{transform:translateY(-50px) rotate(180deg)}}
 
     header{background:rgba(15,23,42,0.85);backdrop-filter:blur(20px);padding:20px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(59,130,246,0.3)}
     header h1{color:#3b82f6;font-size:1.5em;text-shadow:0 0 15px #3b82f6}
     .uk-badge{background:linear-gradient(90deg,#3b82f6,#60a5fa);padding:4px 10px;border-radius:20px;font-size:12px;color:#fff;margin-left:8px}
-    nav a{color:#cbd5e1;margin:0 15px;text-decoration:none;font-weight:500;transition:0.3s}
+    nav a{color:#cbd5e1;margin:0 15px;text-decoration:none;font-weight:500;transition:0.3s;cursor:pointer}
     nav a:hover{color:#3b82f6;text-shadow:0 0 10px #3b82f6}
     
     /* GOOGLE TRANSLATE */
-    #google_translate_element{margin-left:15px}
+    #google_translate_element{margin-left:15px;display:inline-block}
     .goog-te-gadget-simple{background:rgba(30,41,59,0.8) !important;border:1px solid #3b82f6 !important;padding:8px 12px !important;border-radius:6px !important;font-size:13px !important}
     .goog-te-gadget-simple a{color:#fff !important;text-decoration:none !important}
     .goog-te-banner-frame{display:none !important}
@@ -58,6 +43,7 @@
     .hero p{font-size:1.2em;margin-bottom:30px;max-width:700px;margin:auto;color:#cbd5e1}
     .btn{background:linear-gradient(90deg,#3b82f6,#2563eb);color:#fff;padding:16px 32px;border-radius:10px;text-decoration:none;display:inline-block;margin:8px;font-weight:600;border:none;cursor:pointer;transition:0.3s;box-shadow:0 0 20px rgba(59,130,246,0.5)}
     .btn:hover{transform:translateY(-3px);box-shadow:0 0 35px rgba(59,130,246,0.8)}
+    .btn:disabled{opacity:0.6;cursor:not-allowed}
     .btn-whatsapp{background:linear-gradient(90deg,#25D366,#1ebe5a)}
     .btn-green{background:linear-gradient(90deg,#28a745,#22c55e)}
     .btn-red{background:linear-gradient(90deg,#dc3545,#ef4444)}
@@ -96,7 +82,6 @@
     th,td{padding:16px;text-align:left;border-bottom:1px solid rgba(59,130,246,0.1)}
     th{background:rgba(30,41,59,0.8);color:#3b82f6;font-weight:600}
     .status-pending{color:#f59e0b;font-weight:600}
-    .status-completed{color:#10b981;font-weight:600}
 
     /* FORMS */
     .form-section{background:rgba(17,24,39,0.7);backdrop-filter:blur(20px);padding:60px;border-radius:20px;border:1px solid rgba(59,130,246,0.3);max-width:500px;margin:20px auto;box-shadow:0 0 40px rgba(59,130,246,0.2)}
@@ -108,15 +93,11 @@
     .contact{background:rgba(15,23,42,0.85);backdrop-filter:blur(20px);text-align:center;border-top:1px solid rgba(59,130,246,0.3)}
     .contact a{color:#3b82f6;text-decoration:none}
     footer{text-align:center;padding:40px;background:#020617;color:#64748b;border-top:1px solid rgba(59,130,246,0.3)}
-    .disclaimer{font-size:12px;color:#64748b;text-align:center;margin-top:20px;max-width:800px;margin:auto}
 
-    /* LIVE CHAT BOT */
+    /* CHAT BOT */
     .chat-btn{position:fixed;bottom:20px;right:20px;background:linear-gradient(135deg,#3b82f6,#2563eb);width:65px;height:65px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:999;box-shadow:0 0 25px rgba(59,130,246,0.6);font-size:26px}
-    .chat-btn:hover{transform:scale(1.1)}
     .chat-box{position:fixed;bottom:95px;right:20px;width:360px;height:480px;background:rgba(17,24,39,0.95);backdrop-filter:blur(20px);border:1px solid rgba(59,130,246,0.3);border-radius:20px;display:none;flex-direction:column;z-index:999;box-shadow:0 0 40px rgba(59,130,246,0.4)}
     .chat-header{background:linear-gradient(90deg,#3b82f6,#2563eb);padding:18px;border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:center}
-    .chat-header h4{color:#fff}
-    .close-chat{cursor:pointer;font-size:22px}
     .chat-body{flex:1;padding:18px;overflow-y:auto}
     .bot-msg,.user-msg{margin-bottom:15px;padding:12px 16px;border-radius:12px;max-width:80%}
     .bot-msg{background:rgba(30,41,59,0.8);color:#e6e6e6}
@@ -124,12 +105,9 @@
     .chat-input{display:flex;padding:12px;border-top:1px solid rgba(59,130,246,0.3)}
     .chat-input input{flex:1;padding:12px;background:rgba(10,15,26,0.8);border:1px solid rgba(59,130,246,0.3);border-radius:8px;color:#fff;outline:none}
     .chat-input button{background:linear-gradient(90deg,#3b82f6,#2563eb);border:none;padding:12px 18px;border-radius:8px;margin-left:10px;color:#fff;cursor:pointer}
-    .quick-reply{display:inline-block;background:rgba(30,41,59,0.8);padding:8px 14px;border-radius:20px;margin:6px 6px 0 0;font-size:13px;cursor:pointer}
-    .quick-reply:hover{background:#3b82f6}
   </style>
 </head>
 <body>
-  <!-- ANIMATED BACKGROUND LAYERS -->
   <div class="bg-animation"></div>
   <div class="grid-overlay"></div>
   <div class="floating-coins">
@@ -145,7 +123,6 @@
     <nav id="mainNav">
       <a href="#">Home</a>
       <a href="#about">About</a>
-      <a href="#services">Services</a>
       <a href="#markets">Markets</a>
       <a href="#signup">Sign Up</a>
       <a href="#login">Login</a>
@@ -159,11 +136,10 @@
     </nav>
   </header>
 
-  <!-- HOMEPAGE CONTENT -->
   <div id="homepage">
     <section class="hero">
       <h2>Powering the Future of Digital Assets</h2>
-      <p>UK-based Bitcoin mining company founded in 2015. We combine blockchain technology with renewable energy and gas distribution.</p>
+      <p>UK-based Bitcoin mining company founded in 2015. Blockchain technology + Renewable Energy.</p>
       <a href="#signup" class="btn">Get Started</a>
       <a href="https://wa.me/447350814727" class="btn btn-whatsapp" target="_blank">WhatsApp Support</a>
     </section>
@@ -171,56 +147,33 @@
     <section id="about">
       <h2 class="section-title">About Cointrade Exchange</h2>
       <div class="grid">
-        <div class="card"><div class="card-icon">🏢</div><h3>Established 2015</h3><p>Over 10 years of experience in cryptocurrency mining and blockchain infrastructure.</p></div>
-        <div class="card"><div class="card-icon">♻️</div><h3>Sustainable Operations</h3><p>Powered by renewable energy sources and natural gas distribution.</p></div>
-        <div class="card"><div class="card-icon">🔗</div><h3>Blockchain Powered</h3><p>Transparency, security, and efficiency across all operations.</p></div>
+        <div class="card"><div class="card-icon">🏢</div><h3>Established 2015</h3><p>10+ years experience in crypto mining and blockchain infrastructure.</p></div>
+        <div class="card"><div class="card-icon">♻️</div><h3>Sustainable Operations</h3><p>Powered by renewable energy and natural gas distribution.</p></div>
+        <div class="card"><div class="card-icon">🔒</div><h3>Secure & Regulated</h3><p>UK based with full compliance and security standards.</p></div>
       </div>
     </section>
 
-    <!-- MARKETS WITH WORKING PRICES -->
     <section id="markets">
       <h2 class="section-title">Live Market Data</h2>
-      <div class="price-widget" id="priceWidget">
-        <div class="price-card">
-          <img class="coin-logo" src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="Bitcoin">
-          <div class="coin">Bitcoin BTC</div>
-          <div class="price" id="btc-price">$--</div>
-          <div class="change" id="btc-change">--</div>
-        </div>
-        <div class="price-card">
-          <img class="coin-logo" src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="Ethereum">
-          <div class="coin">Ethereum ETH</div>
-          <div class="price" id="eth-price">$--</div>
-          <div class="change" id="eth-change">--</div>
-        </div>
-        <div class="price-card">
-          <img class="coin-logo" src="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png" alt="BNB">
-          <div class="coin">BNB</div>
-          <div class="price" id="bnb-price">$--</div>
-          <div class="change" id="bnb-change">--</div>
-        </div>
-        <div class="price-card">
-          <img class="coin-logo" src="https://assets.coingecko.com/coins/images/4128/large/solana.png" alt="Solana">
-          <div class="coin">Solana SOL</div>
-          <div class="price" id="sol-price">$--</div>
-          <div class="change" id="sol-change">--</div>
-        </div>
+      <div class="price-widget">
+        <div class="price-card"><img class="coin-logo" src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png"><div class="coin">Bitcoin BTC</div><div class="price" id="btc-price">$--</div><div class="change" id="btc-change">--</div></div>
+        <div class="price-card"><img class="coin-logo" src="https://assets.coingecko.com/coins/images/279/large/ethereum.png"><div class="coin">Ethereum ETH</div><div class="price" id="eth-price">$--</div><div class="change" id="eth-change">--</div></div>
+        <div class="price-card"><img class="coin-logo" src="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png"><div class="coin">BNB</div><div class="price" id="bnb-price">$--</div><div class="change" id="bnb-change">--</div></div>
+        <div class="price-card"><img class="coin-logo" src="https://assets.coingecko.com/coins/images/4128/large/solana.png"><div class="coin">Solana SOL</div><div class="price" id="sol-price">$--</div><div class="change" id="sol-change">--</div></div>
       </div>
     </section>
 
-    <!-- SIGN UP -->
     <section id="signup">
       <h2 class="section-title">Create Account</h2>
       <div class="form-section">
         <form id="signup-form">
-          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="text" name="name" placeholder="Your Full Name" required>
           <input type="email" name="email" placeholder="Your Email" required>
           <button type="submit" class="btn" style="width:100%">Sign Up</button>
         </form>
       </div>
     </section>
 
-    <!-- LOGIN -->
     <section id="login">
       <h2 class="section-title">Login to Dashboard</h2>
       <div class="form-section">
@@ -232,116 +185,17 @@
     </section>
   </div>
 
-  <!-- DASHBOARD CONTENT -->
   <div id="dashboard" class="hidden">
     <section>
       <h2 class="section-title">Welcome to Your Dashboard</h2>
       <div class="dashboard-grid">
         <div class="dash-card"><h3>💰 Total Balance</h3><div class="amount">$0.00</div></div>
         <div class="dash-card"><h3>📈 Active Investments</h3><div class="amount">$0.00</div></div>
-        <div class="dash-card"><h3>⏳ Pending Transactions</h3><div class="amount">0</div></div>
+        <div class="dash-card"><h3>⏳ Pending</h3><div class="amount">0</div></div>
       </div>
 
       <h2 class="section-title">Quick Actions</h2>
       <div class="action-btns">
-        <div class="action-card" onclick="showForm('deposit')"><h4>💵 Deposit</h4><p>Add funds to your account</p></div>
-        <div class="action-card" onclick="showForm('withdraw')"><h4>🏦 Withdraw</h4><p>Request withdrawal</p></div>
-        <div class="action-card" onclick="showForm('loan')"><h4>📋 Loan</h4><p>Apply for crypto loan</p></div>
-        <div class="action-card" onclick="showForm('options')"><h4>⚙️ Options</h4><p>Account settings</p></div>
-      </div>
-
-      <h2 class="section-title">Transaction History</h2>
-      <table>
-        <thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Status</th></tr></thead>
-        <tbody id="transactionTable"><tr><td colspan="4" style="text-align:center">No transactions yet</td></tr></tbody>
-      </table>
-    </section>
-
-    <!-- DEPOSIT FORM -->
-    <section id="depositForm" class="hidden">
-      <h2 class="section-title">Deposit Funds</h2>
-      <div class="form-section">
-        <form id="deposit-form">
-          <input type="email" name="email" placeholder="Your Email" required>
-          <input type="number" name="amount" placeholder="Amount $" required>
-          <button type="submit" class="btn btn-green" style="width:100%">Submit Deposit</button>
-        </form>
-        <button onclick="showDashboard()" class="btn" style="width:100%;margin-top:10px;background:#64748b">Back to Dashboard</button>
-      </div>
-    </section>
-
-    <!-- WITHDRAW FORM -->
-    <section id="withdrawForm" class="hidden">
-      <h2 class="section-title">Request Withdrawal</h2>
-      <div class="form-section">
-        <form id="withdraw-form">
-          <input type="email" name="email" placeholder="Your Email" required>
-          <input type="number" name="amount" placeholder="Amount $" required>
-          <button type="submit" class="btn btn-red" style="width:100%">Request Withdrawal</button>
-        </form>
-        <button onclick="showDashboard()" class="btn" style="width:100%;margin-top:10px;background:#64748b">Back to Dashboard</button>
-      </div>
-    </section>
-
-    <!-- LOAN FORM -->
-    <section id="loanForm" class="hidden">
-      <h2 class="section-title">Apply for Loan</h2>
-      <div class="form-section">
-        <form id="loan-form">
-          <input type="email" name="email" placeholder="Your Email" required>
-          <input type="number" name="amount" placeholder="Loan Amount $" required>
-          <input type="text" name="reason" placeholder="Purpose of Loan" required>
-          <button type="submit" class="btn btn-purple" style="width:100%">Apply for Loan</button>
-        </form>
-        <button onclick="showDashboard()" class="btn" style="width:100%;margin-top:10px;background:#64748b">Back to Dashboard</button>
-      </div>
-    </section>
-
-    <!-- OPTIONS FORM -->
-    <section id="optionsForm" class="hidden">
-      <h2 class="section-title">Account Options</h2>
-      <div class="form-section">
-        <form id="options-form">
-          <input type="email" name="email" placeholder="Your Email" required>
-          <input type="text" name="request" placeholder="Your Request/Change" required>
-          <button type="submit" class="btn" style="width:100%">Submit Request</button>
-        </form>
-        <button onclick="showDashboard()" class="btn" style="width:100%;margin-top:10px;background:#64748b">Back to Dashboard</button>
-      </div>
-    </section>
-  </div>
-
-  <section class="contact" id="contact">
-    <h2 class="section-title">Contact Us</h2>
-    <p><b>Headquarters:</b> 20 Wenlock Rd, London, N1 7GU, United Kingdom</p>
-    <p><b>Email Support:</b> <a href="mailto:cointradeexchange314@gmail.com">cointradeexchange314@gmail.com</a></p>
-    <p><b>WhatsApp Support:</b> <a href="https://wa.me/447350814727" target="_blank">+44 7350 814727</a></p>
-  </section>
-
-  <footer><p>© 2026 Cointrade Exchange UK Ltd. All rights reserved. | Founded 2015</p></footer>
-
-  <!-- LIVE SUPPORT BOT -->
-  <div class="chat-btn" onclick="toggleChat()">💬</div>
-  <div class="chat-box" id="chatBox">
-    <div class="chat-header"><h4>Live Support</h4><span class="close-chat" onclick="toggleChat()">×</span></div>
-    <div class="chat-body" id="chatBody"><div class="bot-msg">Hi 👋 Welcome to Cointrade Exchange Support!</div></div>
-    <div class="chat-input"><input type="text" id="userInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMsg()"><button onclick="sendMsg()">Send</button></div>
-  </div>
-
-  <!-- GOOGLE TRANSLATE -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-      new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element2');
-    }
-  </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-  <!-- EMAILJS -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
-    emailjs.init('rkNXFBNaIPASucJQr');
-    let currentUser = '';
-
-    function showDashboard(){
-      document.getElementById('homepage
+        <div class="action-card" onclick="showForm('deposit')"><h4>💵 Deposit</h4><p>Add funds</p></div>
+        <div class="action-card" onclick="showForm('withdraw')"><h4>🏦 Withdraw</h4><p>Request payout</p></div>
+       
