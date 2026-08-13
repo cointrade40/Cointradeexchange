@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Coin Trade Exchange</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  *{box-sizing:border-box; font-family:Arial}
+  body{margin:0; background:#0d1117; color:#fff}
+  .navbar{background:#161b22; padding:15px 30px; display:flex; justify-content:space-between; align-items:center}
+  .navbar a{color:#fff; text-decoration:none; margin:0 10px}
+  .sidebar{width:240px; background:#161b22; height:100vh; position:fixed; padding:20px 0; display:none}
+  .sidebar a{display:block; padding:12px 25px; color:#ccc; text-decoration:none}
+  .sidebar a:hover, .sidebar a.active{background:#0d47a1; color:#fff}
+  .content{padding:30px}
+  .with-sidebar{margin-left:260px}
+  .card{background:#161b22; padding:25px; border-radius:10px; margin-bottom:20px}
+  .btn{background:#0d47a1; color:#fff; padding:10px 18px; border-radius:6px; text-decoration:none; border:none; cursor:pointer; display:inline-block; margin:5px}
+  .btn-green{background:#28a745} .btn-red{background:#ff4444}
+  input,select{width:100%; padding:12px; margin:10px 0; background:#0d1117; border:1px solid #333; color:#fff; border-radius:5px}
+  .box{max-width:400px; margin:50px auto; background:#161b22; padding:30px; border-radius:10px}
+  .balance{font-size:32px; color:#00d4ff; font-weight:bold}
+  .wallet-box{background:#0d1117; padding:15px; border-radius:8px; border:1px dashed #00d4ff; word-break:break-all}
+  table{width:100%; border-collapse:collapse} th,td{padding:12px; border-bottom:1px solid #333; text-align:left}
+  .page{display:none}
+  .page.active{display:block}
+  .hero{text-align:center; padding:80px 20px} .hero h1{font-size:40px; color:#00d4ff}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <h2 onclick="showPage('home')" style="cursor:pointer">Coin Trade Exchange</h2>
+  <div id="nav-links">
+    <a href="#" onclick="showPage('login')">Login</a>
+    <a href="#" onclick="showPage('register')" class="btn">Sign Up</a>
+  </div>
+</div>
+
+<div class="sidebar" id="sidebar">
+  <a href="#" onclick="showPage('dashboard')" class="active">📊 Dashboard</a>
+  <a href="#" onclick="showPage('deposit')">💰 Deposit</a>
+  <a href="#" onclick="showPage('withdraw')">💸 Withdraw</a>
+  <a href="#" onclick="showPage('admin')">⚙️ Admin Panel</a>
+  <a href="#" onclick="logout()">🚪 Logout</a>
+</div>
+
+<div id="main-content" class="content">
+<div id="home" class="page active"><div class="hero"><h1>Trade Bitcoin, Ethereum & 100+ Coins</h1><p>Fast, Secure, and Trusted Crypto Exchange in Nigeria</p><a href="#" onclick="showPage('register')" class="btn btn-green">Get Started Now</a></div></div>
+<div id="register" class="page"><div class="box"><h2>Create Account</h2><input type="text" placeholder="Full Name" required><input type="email" placeholder="Email" required><input type="password" placeholder="Password" required><button class="btn" onclick="login()">Sign Up</button><p>Already have an account? <a href="#" onclick="showPage('login')" style="color:#00d4ff">Login</a></p></div></div>
+<div id="login" class="page"><div class="box"><h2>Login to Your Account</h2><input type="email" placeholder="Email" required><input type="password" placeholder="Password" required><button class="btn" onclick="login()">Log In</button><p><a href="#" style="color:#00d4ff">Forgot Password?</a></p><p>Don’t have an account? <a href="#" onclick="showPage('register')" style="color:#00d4ff">Sign Up</a></p></div></div>
+<div id="dashboard" class="page"><h1>Dashboard</h1><div style="display:flex; gap:20px; flex-wrap:wrap"><div class="card" style="flex:1; min-width:250px"><p>Total Balance</p><p class="balance">$0.00 USD</p><p>₦0.00 NGN</p></div><div class="card" style="flex:1; min-width:250px"><p>USDT Balance</p><p class="balance">0.00 USDT</p><a href="#" onclick="showPage('deposit')" class="btn btn-green">Deposit</a><a href="#" onclick="showPage('withdraw')" class="btn">Withdraw</a></div></div></div>
+<div id="deposit" class="page"><h1>Deposit Crypto</h1><div class="card"><h3>1. Select Coin</h3><select><option>USDT - TRC20</option><option>Bitcoin - BTC</option></select></div><div class="card"><h3>2. Your USDT TRC20 Deposit Address</h3><div class="wallet-box">TMtDBYsdFmRqkSsQLTwnuynvRkZjYyGQkA</div></div></div>
+<div id="withdraw" class="page"><h1>Withdraw Crypto</h1><div class="card"><h3>Withdraw USDT TRC20</h3><p>Available Balance: <b>0.00 USDT</b></p><input type="text" placeholder="Your USDT TRC20 Wallet Address" required><input type="number" placeholder="Amount to Withdraw" required><button class="btn btn-red">Request Withdrawal</button></div></div>
+<div id="admin" class="page"><h1>Admin Panel</h1><div class="card"><h3>All Users</h3><table><tr><th>Name</th><th>Email</th><th>Balance</th><th>Action</th></tr><tr><td>Williams Antonio</td><td>Antonio4353</td><td>$0.00</td><td><button class="btn-red">Ban</button></td></tr></table></div></div>
+</div>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id != 'home' && id != 'login' && id != 'register'){
+    document.getElementById('sidebar').style.display = 'block';
+    document.getElementById('main-content').classList.add('with-sidebar');
+    document.getElementById('nav-links').innerHTML = 'Welcome, User';
+  }
+}
+function login(){ showPage('dashboard'); }
+function logout(){
+  document.getElementById('sidebar').style.display = 'none';
+  document.getElementById('main-content').classList.remove('with-sidebar');
+  document.getElementById('nav-links').innerHTML = '<a href="#" onclick="showPage(\'login\')">Login</a> <a href="#" onclick="showPage(\'register\')" class="btn">Sign Up</a>';
+  showPage('home');
+}
+</script>
+</body>
+</html>
